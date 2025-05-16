@@ -1,20 +1,28 @@
-# Spotify Data Pipeline
+# 🚀 Overview
+This project builds an automated ETL pipeline that collects Spotify data using the Spotify API, processes and stores it in AWS, and ultimately loads it into Snowflake for analytics and reporting. The workflow leverages Python for data extraction and transformation, AWS for orchestration and storage, and Snowflake (via Snowpipe) for scalable data loading.
 
-Technology Stack - 
-1. Python
-2. AWS Cloud (S3, CloudWatch, AWS Lambda)
-3. Snowflake
+# 🧰 Tech Stack
+Python – Data extraction and transformation
 
-Python - 
-Python is used to pull the Spotify data with the help of Spotify API. The raw spotify data is in the dictionary format which required cleaning with the help of transformation logics using Python
+AWS – S3, Lambda, CloudWatch
 
-AWS Cloud - 
-1. S3 Object Storage - The raw spotify data is stored in the S3 bucket which is sourced with help of AWS Lambda function and Spotify API. S3 is also used to store the data after initial transformation with help of Lambda function.
-2. CloudWatch - CloudWatch is used as a trigger to run the Lambda function which is used to extract the Spotify data.
-3. AWS Lambda - For this Data Engineering Project I have used 2 Lambda functions. One for Extracting data from Spotify API and other which is used for Data transformation.
+Snowflake – Cloud data warehouse with Snowpipe integration
 
-Snowflake - 
-After all the data transformation data is loaded into Snowflake with the help of Snowpipe. Here by using Snowpipe we establish a connection between S3 bucket and Snowflake in order to pull data from S3 bucket to Snowflake tables.
+# ⚙️ Architecture
+1. Data Extraction (Python + AWS Lambda)
+Python scripts interface with the Spotify API to pull raw track/artist data in JSON format.
+
+An AWS Lambda function handles this process and stores the raw output into an S3 bucket.
+
+2. Data Transformation (AWS Lambda)
+A second Lambda function is triggered upon new object creation in S3 (object event).
+
+This function transforms and cleans the raw data and writes it back into a different S3 location (transformed zone).
+
+3. Data Loading (Snowpipe + Snowflake)
+Snowpipe continuously monitors the transformed S3 location.
+
+As new data arrives, it is automatically ingested into Snowflake tables for analysis.
 
 
 ![1742363494352](https://github.com/user-attachments/assets/829e5ed2-f3d6-4590-b424-85c0f2afb788)
