@@ -1,14 +1,14 @@
-# 🚀 Overview
+## 🚀 Overview
 This project builds an automated ETL pipeline that collects Spotify data using the Spotify API, processes and stores it in AWS, and ultimately loads it into Snowflake for analytics and reporting. The workflow leverages Python for data extraction and transformation, AWS for orchestration and storage, and Snowflake (via Snowpipe) for scalable data loading.
 
-# 🧰 Tech Stack
+## 🧰 Tech Stack
 Python – Data extraction and transformation
 
 AWS – S3, Lambda, CloudWatch
 
 Snowflake – Cloud data warehouse with Snowpipe integration
 
-# ⚙️ Architecture
+## ⚙️ Architecture
 1. Data Extraction (Python + AWS Lambda)
 Python scripts interface with the Spotify API to pull raw track/artist data in JSON format.
 
@@ -23,6 +23,14 @@ This function transforms and cleans the raw data and writes it back into a diffe
 Snowpipe continuously monitors the transformed S3 location.
 
 As new data arrives, it is automatically ingested into Snowflake tables for analysis.
+
+## ⏰ Automation
+CloudWatch Events schedule the extraction Lambda to run on a daily basis.
+
+S3 Event Notifications trigger the transformation Lambda on object creation.
+
+## 📊 Analytics
+Once data resides in Snowflake, it can be queried directly or visualized in tools such as Power BI or Tableau.
 
 
 ![1742363494352](https://github.com/user-attachments/assets/829e5ed2-f3d6-4590-b424-85c0f2afb788)
